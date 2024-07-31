@@ -57,7 +57,7 @@ const Weather = () => {
         } catch (error) {
             setWeatherData(null);
             setError(error.message);
-            console.error('Error fetching weather data:', error);
+            console.log('Error fetching weather data:', error);
         } finally {
             setLoading(false);
         }
