@@ -40,9 +40,12 @@ const Weather = () => {
         try {
             setLoading(true);
             setError(null);
+            console.log(`Searching weather for: ${city}`); // Added logging
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_APP_ID}`;
+            console.log(`Request URL: ${url}`); // Added logging
             const response = await fetch(url);
             const data = await response.json();
+            console.log('Response Data:', data); // Added logging
             if (!response.ok) {
                 throw new Error(data.message);
             }
@@ -57,7 +60,7 @@ const Weather = () => {
         } catch (error) {
             setWeatherData(null);
             setError(error.message);
-            console.log('Error fetching weather data:', error);
+            console.log('Error fetching weather data:', error); // Added logging
         } finally {
             setLoading(false);
         }
@@ -71,7 +74,7 @@ const Weather = () => {
         <div className='weather'>
             <div className='search-bar'>
                 <input ref={inputRef} type='text' placeholder='Search...' />
-                <img src={search_icon} alt='' onClick={() => search(inputRef.current.value)} />
+                <img src={search_icon} alt='Search' onClick={() => search(inputRef.current.value)} />
             </div>
             {loading ? (
                 <p>Loading...</p>
@@ -79,7 +82,7 @@ const Weather = () => {
                 <p>Error: {error}</p>
             ) : weatherData ? (
                 <>
-                    <img src={weatherData.icon} alt='' className='weather-icon' />
+                    <img src={weatherData.icon} alt='Weather Icon' className='weather-icon' />
                     <p className='temperature'>{weatherData.temperature}°c</p>
                     <p className='location'>{weatherData.location}</p>
                     <div className='weather-data'>
